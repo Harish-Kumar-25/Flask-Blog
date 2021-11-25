@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+	{% for post in posts.items %}
+		<article class="card content-section">
+			<div class="d-flex">
+				<img class="rounded-circle article-img" src="/static/profile/{{ post.author.image_file }}">
+				<div class="card-body">
+					<div class="card-title border-bottom">
+						<a class="mr-2 text-capitalize" href="{{ url_for('users.user_post',username = post.author.username)}}">{{ post.author.username }}</a>
+						<small class="text-muted mx-5">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+					</div>
+					<h2><a class="card-body article-title "
+					       href="{{ url_for('posts.post', post_id =post.id) }}">{{ post.title }}</a></h2>
+					<p class="card-text article-content">{{ post.content }}</p>
+				</div>
+			</div>
+		</article>
+	{% endfor %}
+	{% for num in posts.iter_pages(left_edge=1,right_edge=1,left_current = 1,right_current = 2) %}
+		{% if num %}
+			{% if posts.page ==  num %}
+				<a class="btn btn-info mb-4" href="{{ url_for('main.home',page=num) }}">{{ num }}</a>
+			{% else %}
+				<a class="btn btn-outline-info mb-4" href="{{ url_for('main.home',page=num) }}">{{ num }}</a>
+			{% endif %}
+		{% else %}
+			...
+		{% endif %}
+	{% endfor %}
+{% endblock %}
+

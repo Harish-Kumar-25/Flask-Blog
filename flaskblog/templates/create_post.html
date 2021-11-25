@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="card   border-dark border-5 text-dark">
+		<form class="has-validation  needs" method="POST" action="" novalidate>
+			{{ form.hidden_tag() }}
+			<fieldset class="form-group card-body mb-3">
+				<legend class="border-bottom border-dark h3 mb-4"> {{ legend }}</legend>
+				<div class="form-group card-text h4 text-capitalize mb-3">
+					{{ form.title.label(class ="form-control-label mb-3 ") }}
+					{% if form.title.errors %}
+						{{ form.title(class ="form-control form-control-lg border-3 is-invalid") }}
+						<div class="invalid-feedback">
+							{% for foo in form.title.errors %}
+								{{ foo }}
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.title(class ="form-control form-control-lg border-3 ") }}
+					{% endif %}
+				</div>
+				<div class="form-group card-text h4 text-capitalize mb-3">
+					{{ form.content.label(class ="form-control-label mb-3 ") }}
+					{% if form.content.errors %}
+						{{ form.content(class ="form-control form-control-lg border-3 is-invalid") }}
+						<div class="invalid-feedback">
+							{% for foo in form.content.errors %}
+								<span>{{ foo }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.content(class ="form-control form-control-lg border-3 ") }}
+					{% endif %}
+				</div>
+			</fieldset>
+			<div class="form-group card-footer border-dark">
+				{{ form.submit(class = "btn btn-outline-info") }}
+			</div>
+		</form>
+	</div>
+{% endblock %}

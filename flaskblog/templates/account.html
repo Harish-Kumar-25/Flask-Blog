@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="card border-5 border-dark">
+		<form class="has-validation  card-body " method="POST" action="" novalidate enctype="multipart/form-data">
+			{{ form.hidden_tag() }}
+			<div class="card-body ">
+				<div class="d-flex ">
+					<img class="rounded-circle account-img" src="{{ image_file }}" alt="nothing">
+					<div class="d-flex flex-column mx-2 justify-content-center">
+						<h2 class="account-heading">{{ current_user.username }}</h2>
+						<p class="text-secondary ">{{ current_user.email }}</p>
+					</div>
+				</div>
+
+				<legend class="border-bottom mb-4"> Account Info</legend>
+				<div class="form-group card-text h4 text-capitalize mb-3">
+					{{ form.username.label(class ="form-control-label mb-3 ") }}
+					{% if form.username.errors %}
+						{{ form.username(class ="form-control form-control-lg border-3 is-invalid") }}
+						<div class="invalid-feedback">
+							{% for foo in form.username.errors %}
+								{{ foo }}
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.username(class ="form-control form-control-lg border-3 ") }}
+					{% endif %}
+				</div>
+				<div class="form-group card-text h4 text-capitalize mb-3">
+					{{ form.email.label(class ="form-control-label mb-3 ") }}
+					{% if form.email.errors %}
+						{{ form.email(class ="form-control form-control-lg border-3 is-invalid") }}
+						<div class="invalid-feedback">
+							{% for foo in form.email.errors %}
+								<span>{{ foo }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.email(class ="form-control form-control-lg border-3 ") }}
+					{% endif %}
+				</div>
+				<div class="form-group card-text text-capitalize">
+					{{ form.pic.label() }}
+					{{ form.pic(class ='form-control my-3 ') }}
+					{% if form.pic.errors %}
+						{% for foo in form.pic.errors %}
+									<span class="text-danger"> {{ foo }}</span>
+						{% endfor %}
+					{% endif %}
+				</div>
+				<div class="form-group card-footer border-dark">
+					{{ form.submit(class = "btn btn-outline-info") }}
+				</div>
+			</div>
+		</form>
+	</div>
+{% endblock %}

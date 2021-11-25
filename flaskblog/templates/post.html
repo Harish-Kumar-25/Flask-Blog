@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+	<article class="card content-section">
+		<div class="d-flex">
+			<img class="rounded-circle article-img" src="/static/profile/{{ post.author.image_file }}">
+			<div class="card-body">
+				<div class="card-title border-bottom border-dark">
+					<a class="mr-2 text-capitalize" href="{{ url_for('users.user_post',username = post.author.username) }}">{{ post.author.username }}</a>
+					<small class="text-muted mx-5">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+				</div>
+				<h2 class="card-title">{{ post.title }}</h2>
+				<p class="card-text article-content ">{{ post.content }}</p>
+				{% if post.author == current_user %}
+					<div class="card-footer  border-dark  ">
+						<a class="btn btn-outline-info btn-sm m-1" href="{{ url_for('posts.update_post',post_id = post.id ) }}">Update</a>
+						<button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+						        data-bs-target="#staticBackdrop">
+							Delete
+						</button>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</article>
+	<!-- Modal -->
+
+	<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+	     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Are you Sure ?</h5>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<form action="{{ url_for('posts.delete_post',post_id = post.id ) }}" method="post">
+						<input class="btn btn-outline-danger" type="submit"  value="Delete">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
